@@ -7,16 +7,17 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
     <title>TicTacToe</title>
     <style>
+        
 * {
     margin: 0;
     padding: 0;
 }
-
+        
 body {
     font-family: 'Roboto', sans-serif;
     background-color: rgb(245, 245, 245);
 }
-
+        
 table {
     margin: 50px auto;
     width: 90%;
@@ -26,17 +27,17 @@ table {
     border-collapse: collapse;
     border: 10px solid rgb(29, 29, 29);
 }
-
+        
 td {
     width: 29vw;
-    /* height: 29vw; */
+     height: 29vw; 
     /* max-width: 200px; */
     /* max-height: 200px; */
     border: 10px solid rgb(29, 29, 29);
     font-size: 80px;
     text-align: center;
 }
-
+        
 #message-wrapper {
     top: 0;
     left: 0;
@@ -47,7 +48,7 @@ td {
     transition: background-color 1s ease-in-out;
     z-index: -1;
 }
-
+        
 #message-wrapper > #message {
     position: absolute;
     width: 100%;
@@ -58,32 +59,33 @@ td {
     color: transparent;
     transition: color 1s;
 }
-
+        
 #message-wrapper.visible {
     background-color: rgba(255, 255, 255, 0.9);
 }
-
+        
 #message-wrapper.visible > #message {
     color: black;
 }
-
+        
 header {
     width: 100%;
     height: 100px;
 }
-
+        
 header > .title {
     margin-top: 50px;
     font-size: 40px;
     text-align: center;
 }
-
+        
 header > #score {
     letter-spacing: 10px;
     margin-top: 20px;
     font-size: 30px;
     text-align: center;
 }
+        
     </style>
 </head>
 <body>
@@ -119,21 +121,20 @@ header > #score {
     </table>
     <script>
 "use strict";
-
 const boxes = [];
 const messageWrapper = document.getElementById("message-wrapper");
 const message = document.getElementById("message");
 const scoreDisplay = document.getElementById("score");
-
+        
 let gamePlaying = true;
 let playerXTurn = true;
 let xScore = 0;
 let oScore = 0;
-
+        
 for (const tr of document.getElementsByTagName('tr')) {
     boxes.push(tr.getElementsByTagName('td'));
 }
-
+        
 function fadeInMessage(msg) {
     if (!msg) {
         msg = message.innerHTML;
@@ -143,20 +144,20 @@ function fadeInMessage(msg) {
     messageWrapper.style.zIndex = 5;
     messageWrapper.classList.add("visible");
 }
-
+        
 function fadeOutMessage() {
     messageWrapper.classList.remove("visible");
     setTimeout(() => {
         messageWrapper.style.zIndex = -1;
     }, 500);
 }
-
+        
 function displayWinnerBoxes(winnerBoxes) {
     for (const box of winnerBoxes) {
         box.style.color = 'rgb(255,73,73)';
     }
 }
-
+        
 function displayWinnerMessage(char) {
     if (!char) {
         fadeInMessage(`Tie.`);
@@ -164,7 +165,7 @@ function displayWinnerMessage(char) {
     }
     fadeInMessage(`Congratulations to "${char}" player! 🎉`);
 }
-
+        
 function checkVertical(char) {
     if (!char) return false;
     for (let i = 0; i < 3; i++) {
@@ -178,10 +179,9 @@ function checkVertical(char) {
     }
     return false;
 }
-
+        
 function checkHorizontal(char) {
     if (!char) return false;
-
     for (const boxRow of boxes) {
         let win = true;
         const winnerBoxes = [];
@@ -193,11 +193,11 @@ function checkHorizontal(char) {
     }
     return false;
 }
-
+        
 function checkWin(char) {
     return checkVertical(char) || checkHorizontal(char) || checkDiagonal(char);
 }
-
+        
 function checkDiagonal(char) {
     const checkBoxes = (boxes) => {
         let winnerBoxes = [];
@@ -208,27 +208,24 @@ function checkDiagonal(char) {
         }
         return winnerBoxes.length == 3 ? winnerBoxes : false;
     }
-
     return checkBoxes([boxes[0][0], boxes[1][1], boxes[2][2]]) ||
         checkBoxes([boxes[2][2], boxes[1][1], boxes[0][0]]);
 }
-
+        
 function checkTie() {
     for (const box of document.getElementsByTagName('td')) {
         if (box.innerHTML == "") return false;
     }
     return true;
 }
-
+        
 function getClickedFunction(box) {
     return () => {
         if (!gamePlaying) return;
         if (box.innerHTML !== "") return;
         const char = playerXTurn ? 'X' : 'O';
         playerXTurn = !playerXTurn;
-
         box.innerHTML = char;
-
         const winnerBoxes = checkWin(char);
         if (winnerBoxes) {
             gamePlaying = false;
@@ -248,7 +245,7 @@ function getClickedFunction(box) {
         }
     }
 }
-
+        
 function restartGame() {
     setTimeout(() => {
         playerXTurn = true;
@@ -260,13 +257,13 @@ function restartGame() {
         fadeOutMessage();
     }, 1500);
 }
-
+        
 function setScore(xScoreTo, oScoreTo) {
     xScore = xScoreTo;
     oScore = oScoreTo;
     scoreDisplay.innerHTML = `${xScore} - ${oScore}`;
 }
-
+        
 function addScore(char) {
     if (char == "X") {
         return setScore(xScore + 1, oScore);
@@ -275,7 +272,7 @@ function addScore(char) {
     }
     return setScore(xScore + 1, oScore + 1);
 }
-
+        
 for (const box of document.getElementsByTagName('td')) {
     box.addEventListener("click", (() => getClickedFunction(box))());
 }
