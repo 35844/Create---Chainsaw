@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(245, 245, 245);
+}
+
+table {
+    margin: 5vw;
+    width: 90%;
+    height: 90vw;
+    margin-top: calc((100vh - 90vw) /2);
+    border-collapse: collapse;
+    border: 10px solid rgb(29, 29, 29);
+}
+
+td {
+    width: 29vw;
+    height: 29vw;
+    border: 10px solid rgb(29, 29, 29);
+    font-size: 80px;
+    text-align: center;
+}
+
+#message-wrapper {
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: transparent;
+    transition: background-color 1s ease-in-out;
+    z-index: -1;
+}
+
+#message-wrapper > #message {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    font-size: 30px;
+    top: calc(50vh - 25px);
+    text-align: center;
+    color: transparent;
+    transition: color 1s;
+}
+
+#message-wrapper.visible {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+#message-wrapper.visible > #message {
+    color: black;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+}
+
+header > .title {
+    margin-top: 50px;
+    font-size: 40px;
+    text-align: center;
+}
+
+header > #score {
+    letter-spacing: 10px;
+    margin-top: 20px;
+    font-size: 30px;
+    text-align: center;
+}
